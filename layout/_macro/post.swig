@@ -351,7 +351,10 @@
         {% include 'post-copyright.swig' with { post: post } %}
       </div>
     {% endif %}
-
+    {# NOTE 这里有些tags相关代码， #}
+    {# 连载相关代码也要添加在这里。#}
+    {# 问题： 如何在post里面添加连载信息？类似post.tags的变量是谁set的？#}
+    {# 是否应该在render 相关plugin里面？#}
     <footer class="post-footer">
       {% if post.tags and post.tags.length and not is_index %}
         <div class="post-tags">
@@ -360,6 +363,19 @@
           {% endfor %}
         </div>
       {% endif %}
+
+    {# 试一下#}
+    {# 可以展示，但应该是一个字符串，tag有tag.path这种东西，不知道是在哪里set的#}
+    {# node_modules/hexo 有大量的tag、category之类的代码，tag、category是原生支持的#}
+    {# 自己加入front matter可能很难达成这种效果#}
+    {# 两个办法 - 1.是使用tag，将连载标题作为一个tag，这样这个tag里面全部都是这个连载的文章，唯一问题是不能排序，以发布时间作为顺序#}
+      {#{% if post.series and post.series.length and not is_index %}#}
+        {#<div class="post-tags">#}
+          {#{% for series in post.series %}#}
+            {#{{series}}#}
+          {#{% endfor %}#}
+        {#</div>#}
+      {#{% endif %}#}
 
       {% if not is_index %}
       {% if theme.rating.enable or (theme.vkontakte_api.enable and theme.vkontakte_api.like) or (theme.facebook_sdk.enable and theme.facebook_sdk.like_button) or (theme.needmoreshare2.enable and theme.needmoreshare2.postbottom.enable) %}
